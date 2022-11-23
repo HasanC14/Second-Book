@@ -7,7 +7,9 @@ const Main = () => {
   return (
     <div className="flex flex-col h-screen justify-between">
       <Navbar></Navbar>
-      <Outlet></Outlet>
+      <div>
+        <Outlet></Outlet>
+      </div>
       <Footer></Footer>
     </div>
   );
