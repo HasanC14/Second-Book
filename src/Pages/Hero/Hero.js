@@ -35,29 +35,10 @@ const Hero = () => {
           }}
         ></div>
         <SwiperSlide>
-          <div className=" md:m-40 mt-40 ">
-            <div className="text" data-swiper-parallax="-100">
-              <div
-                className="lg:text-9xl text-5xl font-bold"
-                data-swiper-parallax="-300"
-              >
-                AFFORDABLE PRICING
-              </div>
-              <div className="mt-5">
-                <Link to={"/Categories"}>
-                  <button className="px-8 py-3 font-bold rounded-full bg-gray-100 text-gray-800">
-                    See Categories
-                  </button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
           <div className="md:m-40 mt-40 ">
             <div className="text " data-swiper-parallax="-100">
               <div
-                className="lg:text-9xl text-5xl font-bold"
+                className="lg:text-9xl text-9xl font-bold"
                 data-swiper-parallax="-300"
               >
                 SELL OLD BOOK
@@ -72,10 +53,30 @@ const Hero = () => {
           </div>
         </SwiperSlide>
         <SwiperSlide>
+          <div className=" md:m-40 mt-40 ">
+            <div className="text" data-swiper-parallax="-100">
+              <div
+                className="lg:text-9xl text-8xl font-bold"
+                data-swiper-parallax="-300"
+              >
+                GET GREAT PRICING
+              </div>
+              <div className="mt-5">
+                <Link to={"/Categories"}>
+                  <button className="px-8 py-3 font-bold rounded-full bg-gray-100 text-gray-800">
+                    See Categories
+                  </button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </SwiperSlide>
+
+        <SwiperSlide>
           <div className="md:m-40 mt-40 ">
             <div className="text " data-swiper-parallax="-100">
               <div
-                className="lg:text-9xl text-5xl font-bold"
+                className="lg:text-9xl text-7xl font-bold"
                 data-swiper-parallax="-300"
               >
                 GREAT CUSTOMER SERVICE
