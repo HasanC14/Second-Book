@@ -1,19 +1,19 @@
 import { createBrowserRouter } from "react-router-dom";
-import DashboardLayout from "../../Layout/DashboardLayout";
-import Main from "../../Layout/Main";
-import Blog from "../../Pages/Blog/Blog";
-import Categories from "../../Pages/Categories/Categories";
-import CategoryBooks from "../../Pages/CategoryBooks/CategoryBooks";
-import AddProduct from "../../Pages/DashboardPages/AddProduct";
-import AllBuyers from "../../Pages/DashboardPages/AllBuyers";
-import AllSellers from "../../Pages/DashboardPages/AllSellers";
-import MyOrders from "../../Pages/DashboardPages/MyOrders";
-import MyProducts from "../../Pages/DashboardPages/MyProducts";
-import ReportedItems from "../../Pages/DashboardPages/ReportedItems";
-import Home from "../../Pages/Home/Home";
-import Login from "../../Pages/Login/Login";
-import Register from "../../Pages/Register/Register";
-import PrivateRoute from "../PrivateRoutes/PrivateRoutes";
+import DashboardLayout from "../Layout/DashboardLayout";
+import Main from "../Layout/Main";
+import Blog from "../Pages/Blog/Blog";
+import Categories from "../Pages/Categories/Categories";
+import CategoryBooks from "../Pages/CategoryBooks/CategoryBooks";
+import AddProduct from "../Pages/DashboardPages/AddProduct";
+import AllBuyers from "../Pages/DashboardPages/AllBuyers";
+import AllSellers from "../Pages/DashboardPages/AllSellers";
+import MyOrders from "../Pages/DashboardPages/MyOrders";
+import MyProducts from "../Pages/DashboardPages/MyProducts";
+import ReportedItems from "../Pages/DashboardPages/ReportedItems";
+import Home from "../Pages/Home/Home";
+import Login from "../Pages/Login/Login";
+import Register from "../Pages/Register/Register";
+import PrivateRoute from "./PrivateRoutes";
 
 export const router = createBrowserRouter([
   {
