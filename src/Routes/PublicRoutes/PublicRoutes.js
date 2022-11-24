@@ -3,6 +3,7 @@ import DashboardLayout from "../../Layout/DashboardLayout";
 import Main from "../../Layout/Main";
 import Blog from "../../Pages/Blog/Blog";
 import Categories from "../../Pages/Categories/Categories";
+import CategoryBooks from "../../Pages/CategoryBooks/CategoryBooks";
 import AddProduct from "../../Pages/DashboardPages/AddProduct";
 import AllBuyers from "../../Pages/DashboardPages/AllBuyers";
 import AllSellers from "../../Pages/DashboardPages/AllSellers";
@@ -26,10 +27,16 @@ export const router = createBrowserRouter([
       },
       { path: "/Login", element: <Login></Login> },
       { path: "/Register", element: <Register></Register> },
+      {
+        path: "/CategoryBooks/:id",
+        element: <CategoryBooks></CategoryBooks>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/CategoryBooks/${params.id}`),
+      },
     ],
   },
   {
-    path: "/dashboard",
+    path: "/Dashboard",
     element: <DashboardLayout></DashboardLayout>,
     children: [
       { path: "/Dashboard/MyOrders", element: <MyOrders></MyOrders> },

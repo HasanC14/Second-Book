@@ -31,7 +31,7 @@ const Categories = () => {
                 {category.category}
               </p>
               <div className="card-actions justify-center">
-                <Link to={`/books/${category._id}`}>
+                <Link to={`/CategoryBooks/${category._id}`}>
                   <button className="btn bg-gray-300 w-80 text-gray-800 hover:bg-white ">
                     See Books on {category.category}
                   </button>

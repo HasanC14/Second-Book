@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
+import { FaUserCircle } from "react-icons/fa";
 import { AuthContext } from "../../../Context/AuthProvider";
 import logo from "../../../Image/book.png";
 const Navbar = () => {
@@ -29,9 +30,19 @@ const Navbar = () => {
         <Link to={"/Dashboard"}>Dashboard</Link>
       </li>
       {User ? (
-        <li>
-          <button onClick={HandleLogout}>Logout</button>
-        </li>
+        <>
+          <li>
+            <button onClick={HandleLogout}>Logout</button>
+          </li>
+          <div className="grid grid-cols-2 items-center">
+            {User?.photoURL ? (
+              <img src={User?.photoURL} className="w-10 rounded-full" alt="" />
+            ) : (
+              <FaUserCircle className="text-4xl"></FaUserCircle>
+            )}
+            <p className="font-black">{User?.displayName}</p>
+          </div>
+        </>
       ) : (
         <>
           <li>
