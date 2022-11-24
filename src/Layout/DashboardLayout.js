@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link, Outlet } from "react-router-dom";
-import { AuthContext } from "../Context/AuthProvider";
+
 import Footer from "../Pages/Shared/Footer/Footer";
 import Navbar from "../Pages/Shared/Navbar/Navbar";
-import UseAdmin from "../Pages/UseAdmin/UseAdmin";
 
 const DashboardLayout = () => {
   //   const { User } = useContext(AuthContext);
@@ -20,25 +19,25 @@ const DashboardLayout = () => {
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
           <ul className="menu p-4 w-80 bg-base-100 text-base-content">
             <li>
-              <Link to={"/dashboard"}>My Orders</Link>
+              <Link to={"/Dashboard/MyOrders"}>My Orders</Link>
             </li>
             <>
               <li>
-                <Link to={"/dashboard"}>My Products</Link>
+                <Link to={"/Dashboard/MyProducts"}>My Products</Link>
               </li>
               <li>
-                <Link to={"/dashboard/addDoctor"}>Add A Product</Link>
+                <Link to={"/Dashboard/AddProduct"}>Add A Product</Link>
               </li>
             </>
             <>
               <li>
-                <Link to={"/dashboard/allusers"}>All Sellers</Link>
+                <Link to={"/Dashboard/AllSellers"}>All Sellers</Link>
               </li>
               <li>
-                <Link to={"/dashboard/allusers"}>All Buyers</Link>
+                <Link to={"/Dashboard/AllBuyers"}>All Buyers</Link>
               </li>
               <li>
-                <Link to={"/dashboard/allusers"}>Reported Items</Link>
+                <Link to={"/Dashboard/ReportedItems"}>Reported Items</Link>
               </li>
             </>
           </ul>

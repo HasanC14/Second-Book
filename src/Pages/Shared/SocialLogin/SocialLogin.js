@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaGithub, FaGoogle } from "react-icons/fa";
 import swal from "sweetalert";
-import { AuthContext } from "../../Context/AuthProvider";
+import { AuthContext } from "../../../Context/AuthProvider";
 
 const SocialLogin = () => {
   const { LoginWithGoogle, LoginWithGitHub } = useContext(AuthContext);
@@ -10,15 +10,35 @@ const SocialLogin = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-  const HandleGoogle = () => {
-    LoginWithGoogle()
+  const SocialLogin = (user) => {
+    fetch("http://localhost:5000/addUser", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
       .then(() => {
         navigate(from, { replace: true });
         swal({
+          icon: "success",
           title: "Login Successful",
           button: "OK",
         });
+      });
+  };
+  const HandleGoogle = () => {
+    LoginWithGoogle()
+      .then((data) => {
+        navigate(from, { replace: true });
         setError("");
+        const user = {
+          Username: data.user.displayName,
+          email: data.user.email,
+          role: "buyer",
+        };
+        SocialLogin(user);
       })
       .catch((error) => {
         setError(error);
@@ -26,13 +46,15 @@ const SocialLogin = () => {
   };
   const HandleGitHub = () => {
     LoginWithGitHub()
-      .then(() => {
+      .then((data) => {
         navigate(from, { replace: true });
-        swal({
-          title: "Login Successful",
-          button: "OK",
-        });
         setError("");
+        const user = {
+          Username: data.user.displayName,
+          email: data.user.email,
+          role: "buyer",
+        };
+        SocialLogin(user);
       })
       .catch((error) => {
         setError(error);
@@ -64,6 +86,7 @@ const SocialLogin = () => {
           Continue with GitHub
         </Link>
       </div>
+      <p className="text-red-600 text-center text-xl">{error}</p>
     </div>
   );
 };

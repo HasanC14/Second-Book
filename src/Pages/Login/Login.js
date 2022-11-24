@@ -1,12 +1,12 @@
 import React, { useContext, useState } from "react";
-import { FaGithub, FaGoogle } from "react-icons/fa";
 import LoginImg from "../../Image/login.jpg";
 import swal from "sweetalert";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
+import SocialLogin from "../Shared/SocialLogin/SocialLogin";
 
 const Login = () => {
-  const { Login, LoginWithGoogle, LoginWithGitHub } = useContext(AuthContext);
+  const { Login } = useContext(AuthContext);
   const [error, setError] = useState();
   const location = useLocation();
   const navigate = useNavigate();
@@ -30,34 +30,7 @@ const Login = () => {
         setError(error.message);
       });
   };
-  // const HandleGoogle = () => {
-  //   LoginWithGoogle()
-  //     .then(() => {
-  //       navigate(from, { replace: true });
-  //       swal({
-  //         title: "Login Successful",
-  //         button: "OK",
-  //       });
-  //       setError("");
-  //     })
-  //     .catch((error) => {
-  //       setError(error);
-  //     });
-  // };
-  // const HandleGitHub = () => {
-  //   LoginWithGitHub()
-  //     .then(() => {
-  //       navigate(from, { replace: true });
-  //       swal({
-  //         title: "Login Successful",
-  //         button: "OK",
-  //       });
-  //       setError("");
-  //     })
-  //     .catch((error) => {
-  //       setError(error);
-  //     });
-  // };
+
   return (
     <div className="max-w-screen-xl mx-auto">
       <section className="h-screen">
@@ -104,30 +77,8 @@ const Login = () => {
                 <div className="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
                   <p className="text-center font-semibold mx-4 mb-0">OR</p>
                 </div>
-                {/* <div className="mb-5">
-                  <Link
-                     className="px-7 py-3 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg w-full flex justify-center items-center"
-                    style={{ backgroundColor: "#55acee" }}
-                    href="#!"
-                    role="button"
-                    onClick={HandleGoogle}
-                  >
-                    <FaGoogle className="text-2xl mr-5"></FaGoogle>
-                    Continue with Google
-                  </Link>
-                </div>
-                <div>
-                  <Link
-                     className="px-7 py-3 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full flex justify-center items-center mb-3"
-                    style={{ backgroundColor: "#3b5998" }}
-                    href="#!"
-                    role="button"
-                    onClick={HandleGitHub}
-                  >
-                    <FaGithub className="text-2xl mr-5"></FaGithub>
-                    Continue with GitHub
-                  </Link>
-                </div> */}
+                <SocialLogin></SocialLogin>
+
                 <p className="text-red-700 text-center text-xl">{error}</p>
               </form>
             </div>

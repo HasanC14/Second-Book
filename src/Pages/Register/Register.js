@@ -1,15 +1,14 @@
 import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FaGithub, FaGoogle } from "react-icons/fa";
 import swal from "sweetalert";
 import { AuthContext } from "../../Context/AuthProvider";
 import RegisterImg from "../../Image/Register.jpg";
+import SocialLogin from "../Shared/SocialLogin/SocialLogin";
 const Register = () => {
-  const { Register, UpdateUser, LoginWithGoogle, LoginWithGitHub } =
-    useContext(AuthContext);
-  const [error, setError] = useState();
+  const { Register, UpdateUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
+  const [error, setError] = useState();
   const from = location.state?.from?.pathname || "/";
   const HandleForm = (event) => {
     event.preventDefault();
@@ -24,89 +23,36 @@ const Register = () => {
       email,
       role,
     };
-    SocialLogin(user);
+
     Register(email, password)
       .then(() => {
-        swal({
-          icon: "success",
-          title: "Successfully Registered",
-          button: "OK",
-        });
+        fetch("http://localhost:5000/addUser", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(user),
+        })
+          .then((res) => res.json())
+          .then(() => {
+            navigate(from, { replace: true });
+            swal({
+              icon: "success",
+              title: "Sign Up Successful",
+              button: "OK",
+            });
+          });
         form.reset();
-        setError("");
+
         navigate(from, { replace: true });
         const profile = { displayName: Username, photoURL: photoURL };
-        UpdateUser(profile)
-          .then(() => {})
-          .catch((error) => {
-            setError(error.message);
-          });
+        UpdateUser(profile).then(() => {});
       })
       .catch((error) => {
         setError(error.message);
       });
   };
-  const SocialLogin = (user) => {
-    fetch("http://localhost:5000/addUser", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(user),
-    })
-      .then((res) => res.json())
-      .then(() => {
-        navigate(from, { replace: true });
-        swal({
-          icon: "success",
-          title: "Sign Up Successful",
-          button: "OK",
-        });
-      });
-  };
-  const HandleGoogle = () => {
-    LoginWithGoogle()
-      .then((data) => {
-        console.log(data);
-        navigate(from, { replace: true });
-        swal({
-          icon: "success",
-          title: "Login Successful",
-          button: "OK",
-        });
-        setError("");
-        const user = {
-          Username: data.user.displayName,
-          email: data.user.email,
-          role: "buyer",
-        };
-        SocialLogin(user);
-      })
-      .catch((error) => {
-        setError(error);
-      });
-  };
-  const HandleGitHub = () => {
-    LoginWithGitHub()
-      .then((data) => {
-        navigate(from, { replace: true });
-        swal({
-          icon: "success",
-          title: "Login Successful",
-          button: "OK",
-        });
-        setError("");
-        const user = {
-          Username: data.user.displayName,
-          email: data.user.email,
-          role: "buyer",
-        };
-        SocialLogin(user);
-      })
-      .catch((error) => {
-        setError(error);
-      });
-  };
+
   return (
     <div className="max-w-screen-xl mx-auto">
       <section className="h-screen">
@@ -196,37 +142,14 @@ const Register = () => {
                     Sign In
                   </Link>
                 </div>
-
                 <button
                   type="submit"
-                  className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm  uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg w-full"
+                  className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm  uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg w-full mb-5"
+                  onSubmit={HandleForm}
                 >
                   Sign Up
                 </button>
-                <div className="mb-5 mt-5">
-                  <Link
-                    className="px-7 py-3 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg w-full flex justify-center items-center"
-                    style={{ backgroundColor: "#55acee" }}
-                    href="#!"
-                    role="button"
-                    onClick={HandleGoogle}
-                  >
-                    <FaGoogle className="text-2xl mr-5"></FaGoogle>
-                    Continue with Google
-                  </Link>
-                </div>
-                <div>
-                  <Link
-                    className="px-7 py-3 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full flex justify-center items-center mb-3"
-                    style={{ backgroundColor: "#3b5998" }}
-                    href="#!"
-                    role="button"
-                    onClick={HandleGitHub}
-                  >
-                    <FaGithub className="text-2xl mr-5"></FaGithub>
-                    Continue with GitHub
-                  </Link>
-                </div>
+                <SocialLogin></SocialLogin>
                 <p className="text-red-600 text-center text-xl">{error}</p>
               </form>
             </div>
