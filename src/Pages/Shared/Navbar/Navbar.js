@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import swal from "sweetalert";
+import { AuthContext } from "../../../Context/AuthProvider";
 import logo from "../../../Image/book.png";
 const Navbar = () => {
+  const { User, LogOut } = useContext(AuthContext);
+  const HandleLogout = () => {
+    LogOut()
+      .then(() => {
+        swal({
+          title: "Logout Successful",
+          button: "OK",
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
   const MenuItems = (
     <React.Fragment>
       <li>
@@ -13,20 +28,20 @@ const Navbar = () => {
       <li>
         <Link to={"/Dashboard"}>Dashboard</Link>
       </li>
-      {/* {User ? (
-            <li>
-              <button onClick={HandleLogout}>Logout</button>
-            </li>
-          ) : (
-            <>
-              <li>
-                <Link to={"/Login"}>Login</Link>
-              </li>
-              <li>
-                <Link to={"/Register"}>Register</Link>
-              </li>
-            </>
-          )} */}
+      {User ? (
+        <li>
+          <button onClick={HandleLogout}>Logout</button>
+        </li>
+      ) : (
+        <>
+          <li>
+            <Link to={"/Login"}>Login</Link>
+          </li>
+          <li>
+            <Link to={"/Register"}>Register</Link>
+          </li>
+        </>
+      )}
     </React.Fragment>
   );
   return (
@@ -42,7 +57,8 @@ const Navbar = () => {
         <div className="flex-none md:block hidden">
           <ul className="menu menu-horizontal p-0">{MenuItems}</ul>
         </div>
-        <div className="dropdown block md:hidden">
+
+        <div className="dropdown dropdown-end  block md:hidden">
           <label tabIndex={0} className="btn btn-ghost btn-circle">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -61,7 +77,7 @@ const Navbar = () => {
           </label>
           <ul
             tabIndex={0}
-            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+            className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
           >
             {MenuItems}
           </ul>
