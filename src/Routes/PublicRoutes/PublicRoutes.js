@@ -13,6 +13,7 @@ import ReportedItems from "../../Pages/DashboardPages/ReportedItems";
 import Home from "../../Pages/Home/Home";
 import Login from "../../Pages/Login/Login";
 import Register from "../../Pages/Register/Register";
+import PrivateRoute from "../PrivateRoutes/PrivateRoutes";
 
 export const router = createBrowserRouter([
   {
@@ -29,7 +30,11 @@ export const router = createBrowserRouter([
       { path: "/Register", element: <Register></Register> },
       {
         path: "/CategoryBooks/:id",
-        element: <CategoryBooks></CategoryBooks>,
+        element: (
+          <PrivateRoute>
+            <CategoryBooks></CategoryBooks>
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
           fetch(`http://localhost:5000/CategoryBooks/${params.id}`),
       },
