@@ -10,7 +10,6 @@ const Categories = () => {
         setCategories(data);
       });
   }, []);
-  console.log(categories);
   return (
     <div className="max-w-screen-xl mx-auto mt-5">
       <p className="text-4xl text-center font-semibold mb-5">

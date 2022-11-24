@@ -5,7 +5,6 @@ import Loading from "../Shared/Loading/Loading";
 
 const MyProducts = () => {
   const { User } = useContext(AuthContext);
-  // const [products, setProducts] = useState
   const { data: products, isLoading } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
