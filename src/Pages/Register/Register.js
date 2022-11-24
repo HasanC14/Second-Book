@@ -1,13 +1,16 @@
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { FaGithub, FaGoogle } from "react-icons/fa";
 import swal from "sweetalert";
 import { AuthContext } from "../../Context/AuthProvider";
 import RegisterImg from "../../Image/Register.jpg";
 const Register = () => {
-  const { Register, UpdateUser } = useContext(AuthContext);
+  const { Register, UpdateUser, LoginWithGoogle, LoginWithGitHub } =
+    useContext(AuthContext);
   const [error, setError] = useState();
   const navigate = useNavigate();
-
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const HandleForm = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -21,8 +24,7 @@ const Register = () => {
       email,
       role,
     };
-    console.log(user);
-
+    SocialLogin(user);
     Register(email, password)
       .then(() => {
         swal({
@@ -32,7 +34,7 @@ const Register = () => {
         });
         form.reset();
         setError("");
-        navigate("/");
+        navigate(from, { replace: true });
         const profile = { displayName: Username, photoURL: photoURL };
         UpdateUser(profile)
           .then(() => {})
@@ -44,85 +46,152 @@ const Register = () => {
         setError(error.message);
       });
   };
+  const SocialLogin = (user) => {
+    fetch("http://localhost:5000/addUser", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then(() => {
+        navigate(from, { replace: true });
+        swal({
+          icon: "success",
+          title: "Sign Up Successful",
+          button: "OK",
+        });
+      });
+  };
+  const HandleGoogle = () => {
+    LoginWithGoogle()
+      .then((data) => {
+        console.log(data);
+        navigate(from, { replace: true });
+        swal({
+          icon: "success",
+          title: "Login Successful",
+          button: "OK",
+        });
+        setError("");
+        const user = {
+          Username: data.user.displayName,
+          email: data.user.email,
+          role: "buyer",
+        };
+        SocialLogin(user);
+      })
+      .catch((error) => {
+        setError(error);
+      });
+  };
+  const HandleGitHub = () => {
+    LoginWithGitHub()
+      .then((data) => {
+        navigate(from, { replace: true });
+        swal({
+          icon: "success",
+          title: "Login Successful",
+          button: "OK",
+        });
+        setError("");
+        const user = {
+          Username: data.user.displayName,
+          email: data.user.email,
+          role: "buyer",
+        };
+        SocialLogin(user);
+      })
+      .catch((error) => {
+        setError(error);
+      });
+  };
   return (
     <div className="max-w-screen-xl mx-auto">
-      <section class="h-screen">
-        <div class="container px-6 py-12 h-full">
-          <div class="flex justify-center items-center flex-wrap h-full g-6 text-gray-800">
-            <div class="md:w-8/12 lg:w-6/12 mb-12 md:mb-0">
-              <img src={RegisterImg} class="w-full" alt="Phone_image" />
+      <section className="h-screen">
+        <div className="container px-6 py-12 h-full">
+          <div className="flex justify-center items-center flex-wrap h-full g-6 text-gray-800">
+            <div className="md:w-8/12 lg:w-6/12 mb-12 md:mb-0">
+              <img src={RegisterImg} className="w-full" alt="Phone_image" />
             </div>
-            <div class="md:w-8/12 lg:w-5/12 lg:ml-20">
+            <div className="md:w-8/12 lg:w-5/12 lg:ml-20">
               <form onSubmit={HandleForm}>
-                <div class="mb-6">
+                <div className="mb-6">
                   <input
                     type="text"
-                    class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     placeholder="Username"
                     name="username"
+                    required
                   />
                 </div>
-                <div class="mb-6">
+                <div className="mb-6">
                   <input
                     type="text"
-                    class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     placeholder="Email address"
                     name="email"
+                    required
                   />
                 </div>
-                <div class="mb-6">
+                <div className="mb-6">
                   <input
                     type="text"
-                    class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     placeholder="Photo URL"
                     name="photoURL"
+                    required
                   />
                 </div>
-                <div class="mb-6">
+                <div className="mb-6">
                   <input
                     type="password"
-                    class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     placeholder="Password"
                     name="password"
+                    required
                   />
                 </div>
-                <div class="flex justify-start mb-3">
-                  <div class="form-check form-check-inline">
+                <div className="flex justify-start mb-3">
+                  <div className="form-check form-check-inline">
                     <input
-                      class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                      className="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                       type="radio"
                       name="role"
                       id="inlineRadio1"
                       value="buyer"
+                      required
                     />
                     <label
-                      class="form-check-label inline-block text-gray-800"
-                      for="inlineRadio10"
+                      className="form-check-label inline-block text-gray-800"
+                      htmlFor="inlineRadio10"
                     >
                       Buyer
                     </label>
                   </div>
-                  <div class="form-check form-check-inline">
+                  <div className="form-check form-check-inline">
                     <input
-                      class=" form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                      className=" form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                       type="radio"
                       name="role"
                       id="inlineRadio2"
                       value="seller"
+                      required
                     />
                     <label
-                      class="form-check-label inline-block text-gray-800"
-                      for="inlineRadio20"
+                      className="form-check-label inline-block text-gray-800"
+                      htmlFor="inlineRadio20"
                     >
                       Seller
                     </label>
                   </div>
                 </div>
-                <div class="mb-6">
+                <div className="mb-6">
                   Already have an account
                   <Link
                     to="/Login"
-                    class="text-blue-600 hover:text-blue-700 focus:text-blue-700 active:text-blue-800 ml-2"
+                    className="text-blue-600 hover:text-blue-700 focus:text-blue-700 active:text-blue-800 ml-2"
                   >
                     Sign In
                   </Link>
@@ -130,10 +199,34 @@ const Register = () => {
 
                 <button
                   type="submit"
-                  class="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm  uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg w-full"
+                  className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm  uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg w-full"
                 >
                   Sign Up
                 </button>
+                <div className="mb-5 mt-5">
+                  <Link
+                    className="px-7 py-3 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg w-full flex justify-center items-center"
+                    style={{ backgroundColor: "#55acee" }}
+                    href="#!"
+                    role="button"
+                    onClick={HandleGoogle}
+                  >
+                    <FaGoogle className="text-2xl mr-5"></FaGoogle>
+                    Continue with Google
+                  </Link>
+                </div>
+                <div>
+                  <Link
+                    className="px-7 py-3 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full flex justify-center items-center mb-3"
+                    style={{ backgroundColor: "#3b5998" }}
+                    href="#!"
+                    role="button"
+                    onClick={HandleGitHub}
+                  >
+                    <FaGithub className="text-2xl mr-5"></FaGithub>
+                    Continue with GitHub
+                  </Link>
+                </div>
                 <p className="text-red-600 text-center text-xl">{error}</p>
               </form>
             </div>
