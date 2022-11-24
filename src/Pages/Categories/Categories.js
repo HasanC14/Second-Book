@@ -17,7 +17,7 @@ const Categories = () => {
         Find <span className="font-black">BOOKS</span> from your favorite
         <span className="font-black ml-2">GENRES</span>
       </p>
-      <div className="cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 m-10 md:m-0">
+      <div className="cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 m-10 md:m-24 md:mt-0 lg:m-0">
         {categories.map((category) => (
           <div className="card w-96 h-96 bg-base-200 shadow-xl image-full">
             <figure>

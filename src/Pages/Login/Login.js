@@ -84,12 +84,13 @@ const Login = () => {
                   />
                 </div>
 
-                <div class="flex justify-between items-center mb-6">
+                <div class="mb-6">
+                  Don't have an account,
                   <Link
-                    href="#!"
-                    class="text-blue-600 hover:text-blue-700 focus:text-blue-700 active:text-blue-800 duration-200 transition ease-in-out"
+                    to="/Register"
+                    class="text-blue-600 hover:text-blue-700 focus:text-blue-700 active:text-blue-800 ml-3"
                   >
-                    Forgot password?
+                    Sign Up
                   </Link>
                 </div>
 
