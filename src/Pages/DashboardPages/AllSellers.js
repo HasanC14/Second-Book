@@ -1,10 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import swal from "sweetalert";
+
 import Loading from "../Shared/Loading/Loading";
 
 const AllSellers = () => {
   const [users, setusers] = useState([]);
+
   const {
     data: Users,
     isLoading,
@@ -18,20 +20,9 @@ const AllSellers = () => {
       return data;
     },
   });
-  if (isLoading) {
-    return <Loading></Loading>;
-  }
   const HandleDelete = (id) => {
-    swal("Are you sure you want to delete").then((value) => {
-      if (value === true) {
-      }
-      swal({
-        title: " Deleted Canceled",
-        button: "OK",
-      });
-    });
     swal({
-      title: "Are you sure you want to delete?",
+      title: "Are you sure you want to delete the Seller?",
       icon: "warning",
       buttons: true,
       dangerMode: true,
@@ -44,10 +35,10 @@ const AllSellers = () => {
           .then((data) => {
             if (data.deletedCount > 0) {
               swal({
-                title: "Review Deleted",
+                title: "Seller Deleted",
                 button: "OK",
               });
-              const RemainingUser = users.filter((review) => review._id !== id);
+              const RemainingUser = users.filter((user) => user._id !== id);
               setusers(RemainingUser);
               refetch();
             }
@@ -60,6 +51,38 @@ const AllSellers = () => {
       }
     });
   };
+  const HandleVerify = (id) => {
+    swal({
+      title: "Are you sure you want to Verify this Seller?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willVerify) => {
+      if (willVerify) {
+        fetch(`http://localhost:5000/seller/verify/${id}`, {
+          method: "PATCH",
+          headers: { "content-type": "application/json" },
+        })
+          .then((res) => res.json())
+          .then(() => {
+            swal({
+              title: "Seller Verified",
+              button: "OK",
+            });
+            refetch();
+          });
+      } else {
+        swal({
+          icon: "success",
+          title: "Verification Canceled",
+          button: "OK",
+        });
+      }
+    });
+  };
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
   return (
     <div className="overflow-x-auto">
       <table className="table w-full">
@@ -68,6 +91,7 @@ const AllSellers = () => {
             <th>Seller ID</th>
             <th>Seller Name</th>
             <th>Seller Email</th>
+            <th></th>
             <th></th>
           </tr>
         </thead>
@@ -82,6 +106,26 @@ const AllSellers = () => {
                   Delete Seller
                 </button>
               </td>
+              {user?.Verify ? (
+                <td>
+                  <button
+                    className="btn"
+                    disabled
+                    onClick={() => HandleVerify(user._id)}
+                  >
+                    Seller Already Verified
+                  </button>
+                </td>
+              ) : (
+                <td>
+                  <button
+                    className="btn"
+                    onClick={() => HandleVerify(user._id)}
+                  >
+                    Verify Seller
+                  </button>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

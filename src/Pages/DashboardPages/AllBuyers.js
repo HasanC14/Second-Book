@@ -22,16 +22,8 @@ const AllBuyers = () => {
     return <Loading></Loading>;
   }
   const HandleDelete = (id) => {
-    swal("Are you sure you want to delete").then((value) => {
-      if (value === true) {
-      }
-      swal({
-        title: " Deleted Canceled",
-        button: "OK",
-      });
-    });
     swal({
-      title: "Are you sure you want to delete?",
+      title: "Are you sure you want to delete the Buyer?",
       icon: "warning",
       buttons: true,
       dangerMode: true,
@@ -44,10 +36,10 @@ const AllBuyers = () => {
           .then((data) => {
             if (data.deletedCount > 0) {
               swal({
-                title: "Review Deleted",
+                title: "Buyer Deleted",
                 button: "OK",
               });
-              const RemainingUser = users.filter((review) => review._id !== id);
+              const RemainingUser = users.filter((user) => user._id !== id);
               setusers(RemainingUser);
               refetch();
             }
