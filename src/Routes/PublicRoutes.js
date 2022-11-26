@@ -13,6 +13,7 @@ import ReportedItems from "../Pages/DashboardPages/ReportedItems";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
+import Error from "../Pages/Shared/Error/Error";
 import PrivateRoute from "./PrivateRoutes";
 
 export const router = createBrowserRouter([
@@ -42,7 +43,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/Dashboard",
-    element: <DashboardLayout></DashboardLayout>,
+    element: (
+      <PrivateRoute>
+        <DashboardLayout></DashboardLayout>
+      </PrivateRoute>
+    ),
     children: [
       { path: "/Dashboard/MyOrders", element: <MyOrders></MyOrders> },
       { path: "/Dashboard/MyProducts", element: <MyProducts></MyProducts> },
@@ -54,6 +59,10 @@ export const router = createBrowserRouter([
         element: <ReportedItems></ReportedItems>,
       },
     ],
+  },
+  {
+    path: "*",
+    element: <Error></Error>,
   },
 ]);
 export default router;

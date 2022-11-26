@@ -38,7 +38,6 @@ const MyProducts = () => {
                 title: "Product Deleted",
                 button: "OK",
               });
-
               refetch();
             }
           });

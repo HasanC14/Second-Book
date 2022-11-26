@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { ImageViewer } from "react-image-viewer-dv";
 import BookingModal from "../BookingModal/BookingModal";
 const AdvertiseCard = ({ products }) => {
-  const [order, setOrder] = useState({});
+  //const [order, setOrder] = useState({});
   return (
     <div className="mt-10">
-      <div className="flex justify-center">
+      {/* <div className="flex justify-center">
         <p className="text-4xl text-center font-black">Advertised Products</p>
-      </div>
+      </div> */}
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 mt-10 lg:ml-0 ml-8">
         {products.map((product) => (
           <div

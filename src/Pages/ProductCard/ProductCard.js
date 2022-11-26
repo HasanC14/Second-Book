@@ -1,8 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../Context/AuthProvider";
 import BookingModal from "../BookingModal/BookingModal";
-
+import { FaCheckCircle } from "react-icons/fa";
 const ProductCard = ({ book }) => {
   const [product, setProduct] = useState({});
+  const [Seller, setSeller] = useState([]);
+  useEffect(() => {
+    fetch(`http://localhost:5000/seller/?email=${book?.SellerEmail}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setSeller(data);
+      });
+  }, [book?.SellerEmail]);
   return (
     <div className="p-10">
       <div className=" w-full lg:max-w-full lg:flex">
@@ -32,12 +41,20 @@ const ProductCard = ({ book }) => {
           </div>
           <div className="flex justify-between">
             <div className="text-sm">
-              <p className="text-gray-900 text-xl leading-none font-semibold">
+              <p className="text-gray-900 text-xl leading-none font-bold">
                 Seller Details
               </p>
-              <p className="text-gray-900 text-lg leading-none">
+              <p className="text-gray-900 text-lg leading-none font-semibold">
                 {book.SellerName}
               </p>
+              {Seller?.Verify === "true" ? (
+                <p className="text-md">
+                  Verified Seller
+                  <FaCheckCircle></FaCheckCircle>
+                </p>
+              ) : (
+                ""
+              )}
               <p className="text-gray-900 leading-none">{book.Location}</p>
               <p className="text-gray-900 leading-none">{book.Phone}</p>
               <p className="text-gray-600">

@@ -35,11 +35,7 @@ const MyOrders = () => {
             <tr>
               <th>{product._id}</th>
               <td>{product.ProductName}</td>
-              <td>
-                {product?.Time.split("T")[1].split(":")[0]}.
-                {product?.Time.split("T")[1].split(":")[1]} ({" "}
-                {product?.Time.split("T")[0]})
-              </td>
+              <td>{product?.date}</td>
               <td>
                 <button className="btn">Pay now</button>
               </td>

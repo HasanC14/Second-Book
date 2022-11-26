@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import AdvertiseCard from "../AdvertiseCard/AdvertiseCard";
 
 import Loading from "../Shared/Loading/Loading";
@@ -16,11 +16,15 @@ const Advertisement = () => {
   if (isLoading) {
     return <Loading></Loading>;
   }
-  return (
-    <div className="flex justify-center mb-10">
-      <AdvertiseCard products={products}></AdvertiseCard>
-    </div>
-  );
+  if (products.length !== null) {
+    return (
+      <div className="flex justify-center mb-10">
+        <AdvertiseCard products={products}></AdvertiseCard>
+      </div>
+    );
+  } else {
+    return "";
+  }
 };
 
 export default Advertisement;
