@@ -3,6 +3,7 @@ import { AuthContext } from "../../Context/AuthProvider";
 import { useLoaderData } from "react-router-dom";
 import BookingModal from "../BookingModal/BookingModal";
 import ProductCard from "../ProductCard/ProductCard";
+import UseSeller from "../RouteAssets/UseSeller";
 
 const CategoryBooks = () => {
   const Books = useLoaderData();

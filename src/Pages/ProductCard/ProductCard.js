@@ -3,9 +3,12 @@ import { AuthContext } from "../../Context/AuthProvider";
 import BookingModal from "../BookingModal/BookingModal";
 import { FaCheckCircle } from "react-icons/fa";
 import swal from "sweetalert";
+import UseSeller from "../RouteAssets/UseSeller";
 const ProductCard = ({ book }) => {
   const [product, setProduct] = useState({});
   const [Seller, setSeller] = useState([]);
+  const { User } = useContext(AuthContext);
+  const [isSeller] = UseSeller(User?.email);
   useEffect(() => {
     fetch(`http://localhost:5000/seller/?email=${book?.SellerEmail}`)
       .then((res) => res.json())
@@ -92,28 +95,35 @@ const ProductCard = ({ book }) => {
                 {book?.Time.split("T")[0]})
               </p>
             </div>
-            <div>
-              {book.Booked === "true" ? (
-                <button className="btn" disabled>
-                  Already Booked
-                </button>
-              ) : (
-                <label
-                  htmlFor="my-modal-3"
-                  className="btn "
-                  onClick={() => setProduct(book)}
-                >
-                  Book Now
-                </label>
-              )}
-              <div className="mt-3">
-                <button className="btn" onClick={() => HandleReport(book._id)}>
-                  Report to admin
-                </button>
-              </div>
+            {isSeller ? (
+              ""
+            ) : (
+              <div>
+                {book.Booked === "true" ? (
+                  <button className="btn" disabled>
+                    Already Booked
+                  </button>
+                ) : (
+                  <label
+                    htmlFor="my-modal-3"
+                    className="btn "
+                    onClick={() => setProduct(book)}
+                  >
+                    Book Now
+                  </label>
+                )}
+                <div className="mt-3">
+                  <button
+                    className="btn"
+                    onClick={() => HandleReport(book._id)}
+                  >
+                    Report to admin
+                  </button>
+                </div>
 
-              <BookingModal product={product}></BookingModal>
-            </div>
+                <BookingModal product={product}></BookingModal>
+              </div>
+            )}
           </div>
         </div>
       </div>
