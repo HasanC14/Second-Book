@@ -20,7 +20,7 @@ const CategoryBooks = () => {
       <div className="grid grid-cols-1 gap-4 m-10">
         {Books.map((book) => (
           <>
-            <ProductCard book={book}></ProductCard>
+            <ProductCard key={book._id} book={book}></ProductCard>
           </>
         ))}
         <div className="grid grid-cols-5">

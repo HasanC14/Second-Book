@@ -4,12 +4,14 @@ import { AuthContext } from "../../Context/AuthProvider";
 
 const BookingModal = ({ product }) => {
   const { User } = useContext(AuthContext);
+  const date = String(new Date());
 
   const HandleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
     const location = form.location.value;
     const phone = form.phone.value;
+    const date = form.date.value;
     const Order = {
       BuyerName: User?.displayName,
       BuyerEmail: User?.email,
@@ -17,7 +19,7 @@ const BookingModal = ({ product }) => {
       price: product.ResellPrice,
       Address: location,
       phone,
-      Time: new Date(),
+      date,
       SellerEmail: product.SellerEmail,
     };
     fetch("http://localhost:5000/placeorder", {
@@ -79,6 +81,13 @@ const BookingModal = ({ product }) => {
               name="email"
               className="input input-bordered w-full"
               defaultValue={User?.email}
+              readOnly
+            />
+            <input
+              type="text"
+              name="date"
+              className="input input-bordered w-full"
+              defaultValue={date.substring(0, 16)}
               readOnly
             />
             <input
