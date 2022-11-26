@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Context/AuthProvider";
 import BookingModal from "../BookingModal/BookingModal";
 import { FaCheckCircle } from "react-icons/fa";
+import swal from "sweetalert";
 const ProductCard = ({ book }) => {
   const [product, setProduct] = useState({});
   const [Seller, setSeller] = useState([]);
@@ -12,6 +13,34 @@ const ProductCard = ({ book }) => {
         setSeller(data);
       });
   }, [book?.SellerEmail]);
+  const HandleReport = (id) => {
+    swal({
+      title: "Are you sure you want to Report this product?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willVerify) => {
+      if (willVerify) {
+        fetch(`http://localhost:5000/product/Report/${id}`, {
+          method: "PATCH",
+          headers: { "content-type": "application/json" },
+        })
+          .then((res) => res.json())
+          .then(() => {
+            swal({
+              title: "Product Reported",
+              button: "OK",
+            });
+          });
+      } else {
+        swal({
+          icon: "success",
+          title: "Report Canceled",
+          button: "OK",
+        });
+      }
+    });
+  };
   return (
     <div className="p-10">
       <div className=" w-full lg:max-w-full lg:flex">
@@ -77,6 +106,11 @@ const ProductCard = ({ book }) => {
                   Book Now
                 </label>
               )}
+              <div className="mt-3">
+                <button className="btn" onClick={() => HandleReport(book._id)}>
+                  Report to admin
+                </button>
+              </div>
 
               <BookingModal product={product}></BookingModal>
             </div>

@@ -65,7 +65,6 @@ const AddProduct = () => {
             .then((res) => res.json())
             .then(() => {
               navigate("/Dashboard/MyProducts");
-
               swal({
                 icon: "success",
                 title: "Product Added Successfully",
