@@ -4,6 +4,7 @@ import { AuthContext } from "../../Context/AuthProvider";
 
 const BookingModal = ({ product }) => {
   const { User } = useContext(AuthContext);
+
   const HandleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -16,6 +17,7 @@ const BookingModal = ({ product }) => {
       price: product.ResellPrice,
       Address: location,
       phone,
+      Time: new Date(),
       SellerEmail: product.SellerEmail,
     };
     fetch("http://localhost:5000/placeorder", {
@@ -32,6 +34,10 @@ const BookingModal = ({ product }) => {
             title: "Order Confirmed",
             button: "OK",
           });
+          fetch(`http://localhost:5000/product/booked/${product._id}`, {
+            method: "PATCH",
+            headers: { "content-type": "application/json" },
+          }).then((res) => res.json());
           form.reset();
         } else {
           swal({

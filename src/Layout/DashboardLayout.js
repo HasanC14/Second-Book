@@ -28,6 +28,11 @@ const DashboardLayout = () => {
                 <Link to={"/Dashboard/MyOrders"}>My Orders</Link>
               </li>
             )}
+            {isAdmin && (
+              <li>
+                <Link to={"/Dashboard/MyOrders"}>My Orders</Link>
+              </li>
+            )}
 
             {isSeller && (
               <>
