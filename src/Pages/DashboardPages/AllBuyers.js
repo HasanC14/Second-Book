@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
 import swal from "sweetalert";
 import Loading from "../Shared/Loading/Loading";
-
+import { FaTrash } from "react-icons/fa";
 const AllBuyers = () => {
   const [users, setusers] = useState([]);
   const {
@@ -53,31 +53,37 @@ const AllBuyers = () => {
     });
   };
   return (
-    <div className="overflow-x-auto">
-      <table className="table w-full">
-        <thead>
-          <tr>
-            <th>Buyer ID</th>
-            <th>Buyer Name</th>
-            <th>Buyer Email</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {Users.map((user) => (
+    <div className="max-w-screen-xl mx-auto">
+      <div className="overflow-x-auto">
+        <p className="text-4xl font-bold mb-3">All Buyer</p>
+        <table className="table w-full ">
+          <thead>
             <tr>
-              <th>{user._id}</th>
-              <td>{user.Username}</td>
-              <td>{user.email}</td>
-              <td>
-                <button className="btn" onClick={() => HandleDelete(user._id)}>
-                  Delete Buyer
-                </button>
-              </td>
+              <th>Buyer ID</th>
+              <th>Buyer Name</th>
+              <th>Buyer Email</th>
+              <th></th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {Users.map((user) => (
+              <tr>
+                <th>{user._id}</th>
+                <td>{user.Username}</td>
+                <td>{user.email}</td>
+                <td>
+                  <button
+                    className="btn"
+                    onClick={() => HandleDelete(user._id)}
+                  >
+                    <FaTrash></FaTrash>
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

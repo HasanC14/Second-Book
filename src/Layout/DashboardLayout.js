@@ -6,7 +6,7 @@ import UseBuyer from "../Pages/RouteAssets/UseBuyer";
 import UseSeller from "../Pages/RouteAssets/UseSeller";
 import Footer from "../Pages/Shared/Footer/Footer";
 import Navbar from "../Pages/Shared/Navbar/Navbar";
-
+import { FaArrowLeft } from "react-icons/fa";
 const DashboardLayout = () => {
   const { User } = useContext(AuthContext);
   const [isAdmin] = UseAdmin(User?.email);
@@ -15,10 +15,21 @@ const DashboardLayout = () => {
   return (
     <div>
       <Navbar></Navbar>
-      <div className="drawer drawer-mobile">
+      <div className="drawer drawer-end">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content ">
-          <Outlet></Outlet>
+        <div className="drawer-content grid grid-flow-row">
+          <div className="mt-2">
+            <Outlet></Outlet>
+          </div>
+
+          <div className="flex justify-end ">
+            <label
+              htmlFor="my-drawer-2"
+              className="drawer-button btn btn-ghost"
+            >
+              <FaArrowLeft></FaArrowLeft>
+            </label>
+          </div>
         </div>
         <div className="drawer-side">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>

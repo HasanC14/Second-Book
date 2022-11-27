@@ -7,7 +7,7 @@ import UseSeller from "../RouteAssets/UseSeller";
 
 const CategoryBooks = () => {
   const Books = useLoaderData();
-
+  const [product, setProduct] = useState({});
   // const { User } = useContext(AuthContext);
   // const [Seller, setSeller] = useState({});
   // useEffect(() => {
@@ -21,7 +21,12 @@ const CategoryBooks = () => {
       <div className="grid grid-cols-1 gap-4 m-10">
         {Books.map((book) => (
           <>
-            <ProductCard key={book._id} book={book}></ProductCard>
+            <ProductCard
+              key={book._id}
+              book={book}
+              setProduct={setProduct}
+            ></ProductCard>
+            <BookingModal product={product}></BookingModal>
           </>
         ))}
         <div className="grid grid-cols-5">

@@ -1,11 +1,19 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
+
 import { FaUserCircle } from "react-icons/fa";
 import { AuthContext } from "../../../Context/AuthProvider";
 import logo from "../../../Image/book.png";
+import UseAdmin from "../../RouteAssets/UseAdmin";
+import UseSeller from "../../RouteAssets/UseSeller";
+import UseBuyer from "../../RouteAssets/UseBuyer";
 const Navbar = () => {
   const { User, LogOut } = useContext(AuthContext);
+
+  const [isAdmin] = UseAdmin(User?.email);
+  const [isSeller] = UseSeller(User?.email);
+  const [isBuyer] = UseBuyer(User?.email);
   const HandleLogout = () => {
     LogOut()
       .then(() => {
@@ -26,9 +34,22 @@ const Navbar = () => {
       <li>
         <Link to={"/Blog"}>Blog</Link>
       </li>
-      <li>
-        <Link to={"/Dashboard"}>Dashboard</Link>
-      </li>
+      {isAdmin && (
+        <li>
+          <Link to={"/Dashboard/AllSellers"}>Dashboard</Link>
+        </li>
+      )}
+      {isSeller && (
+        <li>
+          <Link to={"/Dashboard/MyProducts"}>Dashboard</Link>
+        </li>
+      )}
+      {isBuyer && (
+        <li>
+          <Link to={"/Dashboard/MyOrders"}>Dashboard</Link>
+        </li>
+      )}
+
       {User ? (
         <>
           <li>

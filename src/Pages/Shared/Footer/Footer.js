@@ -81,6 +81,9 @@ const Footer = () => {
           </div>
         </div>
       </footer>
+      <p className="footer-title text-center text-xs">
+        Made by Hasan Chowdhury
+      </p>
     </div>
   );
 };

@@ -4,11 +4,12 @@ import BookingModal from "../BookingModal/BookingModal";
 import { FaCheckCircle } from "react-icons/fa";
 import swal from "sweetalert";
 import UseSeller from "../RouteAssets/UseSeller";
-const ProductCard = ({ book }) => {
-  const [product, setProduct] = useState({});
+import { FaHeart } from "react-icons/fa";
+const ProductCard = ({ book, setProduct }) => {
   const [Seller, setSeller] = useState([]);
   const { User } = useContext(AuthContext);
   const [isSeller] = UseSeller(User?.email);
+  // const [liked, setLiked] = useState(false);
   useEffect(() => {
     fetch(`http://localhost:5000/seller/?email=${book?.SellerEmail}`)
       .then((res) => res.json())
@@ -53,10 +54,21 @@ const ProductCard = ({ book }) => {
           title="ProductImage"
         ></div>
         <div className="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-          <div className="mb-8">
-            <div className="text-gray-900 font-bold text-xl mb-2">
-              {book.BookName}
+          <div className="mb-8 ">
+            <div className="flex justify-between">
+              <div className="text-gray-900 font-bold text-xl mb-2">
+                {book.BookName}
+              </div>
+              <div className="text-gray-900 font-bold text-xl mb-2">
+                <button className="btn btn-ghost">
+                  <FaHeart
+                    title="Add to Wishlist"
+                    className="text-2xl"
+                  ></FaHeart>
+                </button>
+              </div>
             </div>
+
             <div className="text-gray-900 mb-2 font-semibold">
               by {book.AuthorName}
             </div>
@@ -76,17 +88,19 @@ const ProductCard = ({ book }) => {
               <p className="text-gray-900 text-xl leading-none font-bold">
                 Seller Details
               </p>
-              <p className="text-gray-900 text-lg leading-none font-semibold">
-                {book.SellerName}
-              </p>
-              {Seller?.Verify === "true" ? (
-                <p className="text-md">
-                  Verified Seller
-                  <FaCheckCircle></FaCheckCircle>
+              <div className="flex ">
+                <p className="text-gray-900 text-lg leading-none font-semibold">
+                  {book.SellerName}
                 </p>
-              ) : (
-                ""
-              )}
+                {Seller?.Verify === "true" ? (
+                  <p className="text-md mt-1">
+                    <FaCheckCircle title="Verified Seller"></FaCheckCircle>
+                  </p>
+                ) : (
+                  ""
+                )}
+              </div>
+
               <p className="text-gray-900 leading-none">{book.Location}</p>
               <p className="text-gray-900 leading-none">{book.Phone}</p>
               <p className="text-gray-600">
@@ -120,8 +134,6 @@ const ProductCard = ({ book }) => {
                     Report to admin
                   </button>
                 </div>
-
-                <BookingModal product={product}></BookingModal>
               </div>
             )}
           </div>

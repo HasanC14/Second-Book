@@ -19,30 +19,33 @@ const MyOrders = () => {
     return <Loading></Loading>;
   }
   return (
-    <div className="overflow-x-auto">
-      <table className="table w-full">
-        <thead>
-          <tr>
-            <th>Product ID</th>
-            <th>Product Name</th>
-            <th>Booked on</th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((product) => (
+    <div className="max-w-screen-xl mx-auto">
+      <div className="overflow-x-auto">
+        <p className="text-4xl font-bold mb-3">My Orders</p>
+        <table className="table w-full">
+          <thead>
             <tr>
-              <th>{product._id}</th>
-              <td>{product.ProductName}</td>
-              <td>{product?.date}</td>
-              <td>
-                <button className="btn">Pay now</button>
-              </td>
+              <th>Product ID</th>
+              <th>Product Name</th>
+              <th>Booked on</th>
+              <th></th>
+              <th></th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {products.map((product) => (
+              <tr>
+                <th>{product._id}</th>
+                <td>{product.ProductName}</td>
+                <td>{product?.date}</td>
+                <td>
+                  <button className="btn">Pay now</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

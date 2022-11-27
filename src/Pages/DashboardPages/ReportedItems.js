@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import swal from "sweetalert";
 import Loading from "../Shared/Loading/Loading";
-
+import { FaTrash } from "react-icons/fa";
 const ReportedItems = () => {
   const {
     data: products,
@@ -49,39 +49,42 @@ const ReportedItems = () => {
     return <Loading></Loading>;
   }
   return (
-    <div className="overflow-x-auto">
-      <table className="table w-full">
-        <thead>
-          <tr>
-            <th>Product ID</th>
-            <th>Product Name</th>
-            <th>Posted on</th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((product) => (
+    <div className="max-w-screen-xl mx-auto">
+      <div className="overflow-x-auto">
+        <p className="text-4xl font-bold mb-3">Reported Items</p>
+        <table className="table w-full">
+          <thead>
             <tr>
-              <th>{product._id}</th>
-              <td>{product.BookName}</td>
-              <td>
-                {product?.Time.split("T")[1].split(":")[0]}.
-                {product?.Time.split("T")[1].split(":")[1]} ({" "}
-                {product?.Time.split("T")[0]})
-              </td>
-              <td>
-                <button
-                  className="btn"
-                  onClick={() => HandleDelete(product._id)}
-                >
-                  Delete
-                </button>
-              </td>
+              <th>Product ID</th>
+              <th>Product Name</th>
+              <th>Posted on</th>
+              <th></th>
+              <th></th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {products.map((product) => (
+              <tr>
+                <th>{product._id}</th>
+                <td>{product.BookName}</td>
+                <td>
+                  {product?.Time.split("T")[1].split(":")[0]}.
+                  {product?.Time.split("T")[1].split(":")[1]} ({" "}
+                  {product?.Time.split("T")[0]})
+                </td>
+                <td>
+                  <button
+                    className="btn"
+                    onClick={() => HandleDelete(product._id)}
+                  >
+                    <FaTrash></FaTrash>
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

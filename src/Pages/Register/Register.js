@@ -27,14 +27,14 @@ const Register = () => {
     Register(email, password)
       .then(() => {
         fetch("http://localhost:5000/addUser", {
-          method: "POST",
+          method: "PUT",
           headers: {
             "content-type": "application/json",
           },
           body: JSON.stringify(user),
         })
           .then((res) => res.json())
-          .then(() => {
+          .then((data) => {
             navigate(from, { replace: true });
             swal({
               icon: "success",

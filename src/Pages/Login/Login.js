@@ -17,10 +17,11 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
     Login(email, password)
-      .then(() => {
+      .then((data) => {
+        console.log(data);
         navigate(from, { replace: true });
         swal({
-          title: "Login Successful",
+          title: `Welcome ${data?.user.displayName}`,
           button: "OK",
         });
         form.reset();
