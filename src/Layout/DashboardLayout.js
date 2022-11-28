@@ -27,7 +27,7 @@ const DashboardLayout = () => {
               htmlFor="my-drawer-2"
               className="drawer-button btn btn-ghost"
             >
-              <FaArrowLeft></FaArrowLeft>
+              <FaArrowLeft className="text-3xl"></FaArrowLeft>
             </label>
           </div>
         </div>

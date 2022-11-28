@@ -54,7 +54,7 @@ const Navbar = () => {
         <>
           <li>
             <button onClick={HandleLogout}>
-              <FaSignOutAlt></FaSignOutAlt>
+              LogOut<FaSignOutAlt></FaSignOutAlt>
             </button>
           </li>
           <div className="grid grid-cols-2 items-center">

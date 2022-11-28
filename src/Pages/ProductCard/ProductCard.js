@@ -9,7 +9,6 @@ const ProductCard = ({ book, setProduct }) => {
   const [Seller, setSeller] = useState([]);
   const { User } = useContext(AuthContext);
   const [isSeller] = UseSeller(User?.email);
-  // const [liked, setLiked] = useState(false);
   useEffect(() => {
     fetch(
       `https://server-ten-theta.vercel.app/seller/?email=${book?.SellerEmail}`

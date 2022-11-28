@@ -10,7 +10,7 @@ const AdvertiseCard = ({ product }) => {
         <div>
           <div
             key={product._id}
-            className="max-w-xs p-6 rounded-md shadow-md dark:bg-gray-800 dark:text-gray-50"
+            className="max-w-xs p-6 h-[600px] rounded-md shadow-md dark:bg-gray-800 dark:text-gray-50"
           >
             <ImageViewer>
               <img
@@ -27,11 +27,13 @@ const AdvertiseCard = ({ product }) => {
                 {product.BookName}
                 <span className="text-sm"> by {product.AuthorName}</span>
               </h2>
-              <Link to={`/CategoryBooks/${product.Category_id}`}>
-                <button className="btn bg-gray-300 w-64 text-gray-800 hover:bg-white ">
-                  See Books
-                </button>
-              </Link>
+              <div className="flex justify-center mt-10">
+                <Link to={`/CategoryBooks/${product.Category_id}`}>
+                  <button className="btn bg-gray-300 w-64 text-gray-800 hover:bg-white ">
+                    See Books
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>

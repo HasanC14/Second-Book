@@ -1,14 +1,14 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
   useEffect(() => {
-    fetch("https://server-ten-theta.vercel.app/categories")
-      .then((res) => res.json())
-      .then((data) => {
-        setCategories(data);
-      });
+    axios.get(`https://server-ten-theta.vercel.app/categories`).then((res) => {
+      const persons = res.data;
+      setCategories(persons);
+    });
   }, []);
   return (
     <div className="max-w-screen-xl mx-auto mt-5">
