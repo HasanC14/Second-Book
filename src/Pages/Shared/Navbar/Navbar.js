@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
-
+import { FaSignOutAlt } from "react-icons/fa";
 import { FaUserCircle } from "react-icons/fa";
 import { AuthContext } from "../../../Context/AuthProvider";
 import logo from "../../../Image/book.png";
@@ -53,7 +53,9 @@ const Navbar = () => {
       {User ? (
         <>
           <li>
-            <button onClick={HandleLogout}>Logout</button>
+            <button onClick={HandleLogout}>
+              <FaSignOutAlt></FaSignOutAlt>
+            </button>
           </li>
           <div className="grid grid-cols-2 items-center">
             {User?.photoURL ? (

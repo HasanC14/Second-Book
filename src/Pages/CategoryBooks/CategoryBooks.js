@@ -8,24 +8,21 @@ import UseSeller from "../RouteAssets/UseSeller";
 const CategoryBooks = () => {
   const Books = useLoaderData();
   const [product, setProduct] = useState({});
-  // const { User } = useContext(AuthContext);
-  // const [Seller, setSeller] = useState({});
-  // useEffect(() => {
-  //   fetch(`http://localhost:5000/seller/?email=${User?.email}`)
-  //     .then((res) => res.json())
-  //     .then((data) => setSeller(data));
-  // }, []);
-
   return (
     <div className="flex justify-center max-w-screen-xl mx-auto">
       <div className="grid grid-cols-1 gap-4 m-10">
         {Books.map((book) => (
           <>
-            <ProductCard
-              key={book._id}
-              book={book}
-              setProduct={setProduct}
-            ></ProductCard>
+            {book?.Paid === "true" ? (
+              ""
+            ) : (
+              <ProductCard
+                key={book._id}
+                book={book}
+                setProduct={setProduct}
+              ></ProductCard>
+            )}
+
             <BookingModal product={product}></BookingModal>
           </>
         ))}

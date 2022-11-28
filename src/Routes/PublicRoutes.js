@@ -12,6 +12,7 @@ import MyProducts from "../Pages/DashboardPages/MyProducts";
 import ReportedItems from "../Pages/DashboardPages/ReportedItems";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
+import Payment from "../Pages/Payment/Payment";
 import Register from "../Pages/Register/Register";
 import Error from "../Pages/Shared/Error/Error";
 import PrivateRoute from "./PrivateRoutes";
@@ -50,6 +51,12 @@ export const router = createBrowserRouter([
     ),
     children: [
       { path: "/Dashboard/MyOrders", element: <MyOrders></MyOrders> },
+      {
+        path: "/Dashboard/Payment/:id",
+        element: <Payment></Payment>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/ProductPayment/${params.id}`),
+      },
       { path: "/Dashboard/MyProducts", element: <MyProducts></MyProducts> },
       { path: "/Dashboard/AddProduct", element: <AddProduct></AddProduct> },
       { path: "/Dashboard/AllSellers", element: <AllSellers></AllSellers> },
