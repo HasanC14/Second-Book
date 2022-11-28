@@ -23,11 +23,14 @@ const AdvertiseCard = ({ product }) => {
               <span className="block text-lg font-medium tracking-widest uppercase dark:text-gray-400">
                 {product.ResellPrice}৳
               </span>
-              <h2 className="text-xl font-semibold tracking-wide">
-                {product.BookName}
-                <span className="text-sm"> by {product.AuthorName}</span>
-              </h2>
-              <div className="flex justify-center mt-10">
+              <div className="absolute">
+                <h2 className="text-xl font-semibold tracking-wide absolute w-64">
+                  {product.BookName}
+                  <span className="text-sm"> by {product.AuthorName}</span>
+                </h2>
+              </div>
+
+              <div className="flex justify-center mt-10 relative  top-28">
                 <Link to={`/CategoryBooks/${product.Category_id}`}>
                   <button className="btn bg-gray-300 w-64 text-gray-800 hover:bg-white ">
                     See Books
