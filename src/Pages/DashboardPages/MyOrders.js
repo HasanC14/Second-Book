@@ -10,7 +10,7 @@ const MyOrders = () => {
     queryKey: ["products"],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/BuyerOrders/?email=${User?.email}`
+        `https://server-ten-theta.vercel.app/BuyerOrders/?email=${User?.email}`
       );
       const data = await res.json();
       return data;

@@ -26,7 +26,7 @@ const Register = () => {
 
     Register(email, password)
       .then(() => {
-        fetch("http://localhost:5000/addUser", {
+        fetch("https://server-ten-theta.vercel.app/addUser", {
           method: "PUT",
           headers: {
             "content-type": "application/json",

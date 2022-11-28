@@ -11,7 +11,7 @@ const SocialLogin = () => {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
   const SocialLogin = (user) => {
-    fetch("http://localhost:5000/addUser", {
+    fetch("https://server-ten-theta.vercel.app/addUser", {
       method: "POST",
       headers: {
         "content-type": "application/json",

@@ -15,7 +15,7 @@ const CheckoutForm = ({ Payment }) => {
   const date = dateObj.substring(0, 16);
   const navigate = useNavigate();
   useEffect(() => {
-    fetch("http://localhost:5000/create-payment-intent", {
+    fetch("https://server-ten-theta.vercel.app/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ price }),
@@ -61,6 +61,7 @@ const CheckoutForm = ({ Payment }) => {
     }
     if (paymentIntent.status === "succeeded") {
       setTID(paymentIntent.id);
+      console.log(TID);
       const PaymentInfo = {
         ProductName,
         BuyerEmail,
@@ -68,24 +69,24 @@ const CheckoutForm = ({ Payment }) => {
         TID,
         date,
       };
-      fetch("http://localhost:5000/addPayment", {
+      fetch("https://server-ten-theta.vercel.app/addPayment", {
         method: "POST",
         headers: {
           "content-type": "application/json",
         },
         body: JSON.stringify(PaymentInfo),
       });
-      fetch(`http://localhost:5000/product/paid/${Product_id}`, {
+      fetch(`https://server-ten-theta.vercel.app/product/paid/${Product_id}`, {
         method: "PATCH",
         headers: { "content-type": "application/json" },
       }).then((res) => res.json());
-      fetch(`http://localhost:5000/order/paid/${Payment._id}`, {
+      fetch(`https://server-ten-theta.vercel.app/order/paid/${Payment._id}`, {
         method: "PATCH",
         headers: { "content-type": "application/json" },
       }).then((res) => res.json());
       swal({
         icon: "success",
-        title: `Payment Successfully.`,
+        title: `Payment Successful.`,
         button: "OK",
       });
       navigate("/Dashboard/MyOrders");

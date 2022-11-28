@@ -11,7 +11,7 @@ const ReportedItems = () => {
   } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/reported`);
+      const res = await fetch(`https://server-ten-theta.vercel.app/reported`);
       const data = await res.json();
       return data;
     },
@@ -24,7 +24,7 @@ const ReportedItems = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        fetch(`http://localhost:5000/product/${id}`, {
+        fetch(`https://server-ten-theta.vercel.app/product/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

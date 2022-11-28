@@ -12,7 +12,7 @@ const AllBuyers = () => {
   } = useQuery({
     queryKey: ["Users"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/AllBuyer");
+      const res = await fetch("https://server-ten-theta.vercel.app/AllBuyer");
       const data = await res.json();
       setusers(data);
       return data;
@@ -29,7 +29,7 @@ const AllBuyers = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        fetch(`http://localhost:5000/user/${id}`, {
+        fetch(`https://server-ten-theta.vercel.app/user/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

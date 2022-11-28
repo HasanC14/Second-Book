@@ -14,7 +14,7 @@ const MyProducts = () => {
     queryKey: ["products"],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/SellerProducts/?email=${User?.email}`
+        `https://server-ten-theta.vercel.app/SellerProducts/?email=${User?.email}`
       );
       const data = await res.json();
       return data;
@@ -28,7 +28,7 @@ const MyProducts = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        fetch(`http://localhost:5000/product/${id}`, {
+        fetch(`https://server-ten-theta.vercel.app/product/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -57,7 +57,7 @@ const MyProducts = () => {
       dangerMode: true,
     }).then((willVerify) => {
       if (willVerify) {
-        fetch(`http://localhost:5000/product/ad/${id}`, {
+        fetch(`https://server-ten-theta.vercel.app/product/ad/${id}`, {
           method: "PATCH",
           headers: { "content-type": "application/json" },
         })
@@ -86,7 +86,7 @@ const MyProducts = () => {
       dangerMode: true,
     }).then((willVerify) => {
       if (willVerify) {
-        fetch(`http://localhost:5000/product/adcancel/${id}`, {
+        fetch(`https://server-ten-theta.vercel.app/product/adcancel/${id}`, {
           method: "PATCH",
           headers: { "content-type": "application/json" },
         })

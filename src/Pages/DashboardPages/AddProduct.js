@@ -13,14 +13,12 @@ const AddProduct = () => {
     formState: { errors },
   } = useForm();
   const { User } = useContext(AuthContext);
-  const imageHostKey = "50f31e65f492ad4faf779950c47614e8";
-
   const navigate = useNavigate();
 
   const { data: categories, isLoading } = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/categories");
+      const res = await fetch("https://server-ten-theta.vercel.app/categories");
       const data = await res.json();
       return data;
     },
@@ -30,7 +28,7 @@ const AddProduct = () => {
     const image = data.image[0];
     const formData = new FormData();
     formData.append("image", image);
-    const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
+    const url = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_iamgebb_host_key}`;
     fetch(url, {
       method: "POST",
       body: formData,
@@ -55,7 +53,7 @@ const AddProduct = () => {
             ProductImage: imgData.data.url,
             Time: new Date(),
           };
-          fetch("http://localhost:5000/addProduct", {
+          fetch("https://server-ten-theta.vercel.app/addProduct", {
             method: "POST",
             headers: {
               "content-type": "application/json",
@@ -64,7 +62,7 @@ const AddProduct = () => {
           })
             .then((res) => res.json())
             .then(() => {
-              navigate("/Dashboard");
+              navigate("/Dashboard/MyProducts");
               swal({
                 icon: "success",
                 title: "Product Added Successfully",

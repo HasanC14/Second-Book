@@ -11,7 +11,9 @@ const ProductCard = ({ book, setProduct }) => {
   const [isSeller] = UseSeller(User?.email);
   // const [liked, setLiked] = useState(false);
   useEffect(() => {
-    fetch(`http://localhost:5000/seller/?email=${book?.SellerEmail}`)
+    fetch(
+      `https://server-ten-theta.vercel.app/seller/?email=${book?.SellerEmail}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setSeller(data);
@@ -25,7 +27,7 @@ const ProductCard = ({ book, setProduct }) => {
       dangerMode: true,
     }).then((willVerify) => {
       if (willVerify) {
-        fetch(`http://localhost:5000/product/Report/${id}`, {
+        fetch(`https://server-ten-theta.vercel.app/product/Report/${id}`, {
           method: "PATCH",
           headers: { "content-type": "application/json" },
         })

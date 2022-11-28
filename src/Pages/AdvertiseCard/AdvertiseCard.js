@@ -1,15 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { ImageViewer } from "react-image-viewer-dv";
-import BookingModal from "../BookingModal/BookingModal";
-const AdvertiseCard = ({ products }) => {
-  //const [order, setOrder] = useState({});
+import { Link } from "react-router-dom";
+const AdvertiseCard = ({ product }) => {
   return (
-    <div className="mt-10">
-      {/* <div className="flex justify-center">
-        <p className="text-4xl text-center font-black">Advertised Products</p>
-      </div> */}
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 mt-10 lg:ml-0 ml-8">
-        {products.map((product) => (
+    <div>
+      {product?.Paid === "true" ? (
+        ""
+      ) : (
+        <div>
           <div
             key={product._id}
             className="max-w-xs p-6 rounded-md shadow-md dark:bg-gray-800 dark:text-gray-50"
@@ -29,27 +27,15 @@ const AdvertiseCard = ({ products }) => {
                 {product.BookName}
                 <span className="text-sm"> by {product.AuthorName}</span>
               </h2>
-            </div>
-
-            {/* <div>
-              {product.Booked === "true" ? (
-                <button className="btn" disabled>
-                  Already Booked
+              <Link to={`/CategoryBooks/${product.Category_id}`}>
+                <button className="btn bg-gray-300 w-64 text-gray-800 hover:bg-white ">
+                  See Books
                 </button>
-              ) : (
-                <label
-                  htmlFor="my-modal-3"
-                  className="btn "
-                  onClick={() => setOrder(product)}
-                >
-                  Book Now
-                </label>
-              )}
-              <BookingModal order={order}></BookingModal>
-            </div> */}
+              </Link>
+            </div>
           </div>
-        ))}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

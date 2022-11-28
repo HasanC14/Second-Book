@@ -38,7 +38,9 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/CategoryBooks/${params.id}`),
+          fetch(
+            `https://server-ten-theta.vercel.app/CategoryBooks/${params.id}`
+          ),
       },
     ],
   },
@@ -55,7 +57,9 @@ export const router = createBrowserRouter([
         path: "/Dashboard/Payment/:id",
         element: <Payment></Payment>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/ProductPayment/${params.id}`),
+          fetch(
+            `https://server-ten-theta.vercel.app/ProductPayment/${params.id}`
+          ),
       },
       { path: "/Dashboard/MyProducts", element: <MyProducts></MyProducts> },
       { path: "/Dashboard/AddProduct", element: <AddProduct></AddProduct> },

@@ -23,7 +23,7 @@ const BookingModal = ({ product }) => {
       date,
       SellerEmail: product.SellerEmail,
     };
-    fetch("http://localhost:5000/placeorder", {
+    fetch("https://server-ten-theta.vercel.app/placeorder", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(Order),
@@ -37,10 +37,13 @@ const BookingModal = ({ product }) => {
             title: "Order Confirmed",
             button: "OK",
           });
-          fetch(`http://localhost:5000/product/booked/${product._id}`, {
-            method: "PATCH",
-            headers: { "content-type": "application/json" },
-          }).then((res) => res.json());
+          fetch(
+            `https://server-ten-theta.vercel.app/product/booked/${product._id}`,
+            {
+              method: "PATCH",
+              headers: { "content-type": "application/json" },
+            }
+          ).then((res) => res.json());
           form.reset();
         } else {
           swal({
