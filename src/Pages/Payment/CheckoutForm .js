@@ -69,6 +69,7 @@ const CheckoutForm = ({ Payment }) => {
         TID,
         date,
       };
+      //Paymet Collectio
       fetch("https://server-ten-theta.vercel.app/addPayment", {
         method: "POST",
         headers: {
@@ -76,10 +77,12 @@ const CheckoutForm = ({ Payment }) => {
         },
         body: JSON.stringify(PaymentInfo),
       });
+      //Product Paid
       fetch(`https://server-ten-theta.vercel.app/product/paid/${Product_id}`, {
         method: "PATCH",
         headers: { "content-type": "application/json" },
       }).then((res) => res.json());
+      //Order  Paid
       fetch(`https://server-ten-theta.vercel.app/order/paid/${Payment._id}`, {
         method: "PATCH",
         headers: { "content-type": "application/json" },
