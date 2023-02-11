@@ -1,4 +1,4 @@
-# Second Book - Your one-stop platform for buying and selling used books
+# Second Book
 
 Do you have a love for books, but also a passion for sustainability? Then, Second Book is the perfect platform for you! With its user-friendly interface and wide range of used books, Second Book is a place where book lovers can come together to buy and sell books in an eco-friendly manner.
 
