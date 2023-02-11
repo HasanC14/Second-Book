@@ -22,7 +22,7 @@ Do you have a love for books, but also a passion for sustainability? Then, Secon
 
 ## Server Side Repository
 
-[https://github.com/HasanC14/Second-Book-Server-Side]
+https://github.com/HasanC14/Second-Book-Server-Side
 
 ## How to run the project
 
@@ -39,4 +39,4 @@ If you want to contribute to the project, please feel free to create a pull requ
 
 ## Contact
 
-If you have any questions or suggestions, please don't hesitate to reach out. You can contact me at [chowdhuryh999@gmail.com].
+If you have any questions or suggestions, please don't hesitate to reach out. You can contact me at chowdhuryh999@gmail.com.
